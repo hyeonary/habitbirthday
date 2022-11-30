@@ -49,24 +49,26 @@ function MainPage() {
   return (
     <S.Container>
       <S.Content>
-        <form>
-          <input 
+        <S.Form>
+          <S.InputForm 
             value={userInfo.userEmail}
             name={'userEmail'}
             onChange={onChangeInfo}
+            placeholder={'이메일 주소'}
           />
-          <input 
+          <S.InputForm
             value={userInfo.userName}
             name={'userName'}
             onChange={onChangeInfo}
+            placeholder={'이름'}
           />
-          <button
+          <S.Subscribe
             onClick={(e)=>{
               e.preventDefault()
               subscribe()
             }}
-          >제출</button>
-        </form>
+          >뉴스레터 구독</S.Subscribe>
+        </S.Form>
       </S.Content>
     </S.Container>
   )
