@@ -1,5 +1,7 @@
+import * as S from "./MainPage.style";
+
 function MainPage() {
-  return <div>test 입니당3</div>;
+  return <S.Container></S.Container>;
 }
 
 export default MainPage;
