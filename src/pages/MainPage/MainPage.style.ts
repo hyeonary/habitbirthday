@@ -43,5 +43,24 @@ export const Subscribe = styled.button`
   font-weight: 600;
   padding: 10px 30px;
   cursor: pointer;
-
 `
+
+export const CheerUp = styled.button`
+  margin-top: 100px;
+  margin-bottom: 30px;
+  background-color: #22bb4c;
+  border: none;
+  border-radius: 10px;
+  color: #fff2d1;
+  font-size: 15px;
+  line-height: 130%;
+  font-weight: 700;
+  padding: 15px 60px;
+  cursor: pointer;
+  :hover{
+    background-color: #fff2d1;
+    color: #22bb4c;
+    transition: 0.3s;
+  }
+`
+

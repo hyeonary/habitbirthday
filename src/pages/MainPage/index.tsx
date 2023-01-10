@@ -1,6 +1,6 @@
 import * as S from "./MainPage.style";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface userInfo {
   userEmail: string;
@@ -16,26 +16,6 @@ function MainPage() {
     userName: ''
   })
 
-  const subscribe = () =>{
-    const formData = {
-      eventOccuredBy: "MANUAL",
-      confirmEmailYN: "N",
-      groupIds: ["185170"],
-      subscribers: [
-        {
-          email: userInfo.userEmail,
-          name: userInfo.userName,
-          $ad_agreed: "Y",
-        }
-      ]
-    }
-    axios.request({
-      method: 'POST',
-      baseURL: 'https://api.stibee.com/v1',
-      url: '/lists/171854/subscribers',
-      data: formData
-    })
-  }
 
   const onChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInfo({
@@ -43,8 +23,11 @@ function MainPage() {
       [e.target.name]: e.target.value})
   }
 
-  console.log(userInfo)
+  const [cheerUp, setCheerUp] = useState<number>(0)
   
+  useEffect(()=>{
+    setCheerUp(cheerUp => cheerUp + 1)
+  }, [])
 
   return (
     <S.Container>
@@ -65,10 +48,10 @@ function MainPage() {
           <S.Subscribe
             onClick={(e)=>{
               e.preventDefault()
-              subscribe()
             }}
           >뉴스레터 구독</S.Subscribe>
         </S.Form>
+
       </S.Content>
     </S.Container>
   )
