@@ -7,42 +7,56 @@ export const Container = styled.section`
   display: flex;
   /* align-items: center; */
   justify-content: center;
-  ${onNotLarge}{
-    padding: 100px 20px;
+  ${onNotLarge} {
+    padding: 60px 20px;
   }
-`
-
-export const SubWrapper = styled.div`
-  width: 100%;
-`
-
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-`
-
-export const InputForm = styled.input`
-  border-radius: 8px;
-  border: none;
-  padding: 10px 40px 10px 1.5rem;
-  width: 100%;
-`
-
-export const Subscribe = styled.button`
-  background-color: #FF6CB3;
-  border: none;
-  border-radius: 10px;
-  color: #fff2d1;
-  font-size: 13px;
-  line-height: 120%;
-  font-weight: 700;
-  padding: 12px 30px;
-  cursor: pointer;
-`
+`;
 
 export const HBDLogo = styled.img`
   width: 300px;
   margin-bottom: 70px;
+`;
 
-`
+export const Descrition = styled.div``;
+
+export const SubscribeWrapper = styled.div`
+  width: 100%;
+`;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+`;
+
+export const FormPart = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const InputLabel = styled.label``;
+
+export const InputForm = styled.input`
+  border-radius: 8px;
+  border: none;
+  padding: 13px 40px 13px 1.5rem;
+  width: 100%;
+`;
+
+export const ValidResult = styled.label`
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 130%;
+`;
+
+export const Subscribe = styled.button`
+  background-color: #ff6cb3;
+  border: none;
+  border-radius: 10px;
+  color: #fff2d1;
+  font-size: 14px;
+  line-height: 120%;
+  font-weight: 700;
+  padding: 17px 30px;
+  cursor: pointer;
+`;
