@@ -8,8 +8,9 @@ const Container = styled.div`
 const CustomInput = styled.input`
   border-radius: 8px;
   border: none;
-  padding: 13px 40px 13px 1.5rem;
+  padding: 12px 40px 12px 1.5rem;
   width: 100%;
+  font-size: 14px;
   :focus {
     outline: none !important; 
     border-color: #d6a8e9;

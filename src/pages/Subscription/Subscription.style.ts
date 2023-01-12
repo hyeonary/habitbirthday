@@ -6,15 +6,15 @@ export const Container = styled.section`
   background-color: #fff2d1;
   display: flex;
   justify-content: center;
-  padding-top: 60px;
+  padding-top: 50px;
 
   ${onNotLarge} {
-    padding: 60px 20px 0 20px;
+    padding: 50px 20px 0 20px;
   }
 `;
 
 export const HBDLogo = styled.img`
-  width: 300px;
+  width: 250px;
   margin-bottom: 40px;
 `;
 
