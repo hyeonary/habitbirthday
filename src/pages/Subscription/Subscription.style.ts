@@ -5,8 +5,8 @@ export const Container = styled.section`
   height: 100vh;
   background-color: #fff2d1;
   display: flex;
-  /* align-items: center; */
   justify-content: center;
+
   ${onNotLarge} {
     padding: 60px 20px;
   }
@@ -14,8 +14,17 @@ export const Container = styled.section`
 
 export const HBDLogo = styled.img`
   width: 300px;
-  margin-bottom: 70px;
+  margin-bottom: 40px;
 `;
+
+export const Content = styled.div`
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 150%;
+  text-align: center;
+  margin-bottom: 50px;
+  /* color: #9E9E9E; */
+`
 
 export const Descrition = styled.div``;
 
@@ -26,7 +35,7 @@ export const SubscribeWrapper = styled.div`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 15px;
 `;
 
 export const FormPart = styled.div`

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as S from "./Subscription.style";
 import Logo from "../../assets/img/habitLogo.png";
 import axios from "axios";
 import InputForm from "../../components/InputForm";
+import { useNavigate } from "react-router-dom";
 
 interface userInfo {
   userEmail: string;
@@ -11,11 +12,15 @@ interface userInfo {
 }
 
 function Subscription() {
+	
+	const [isValid, setIsValid] = useState<Boolean>(false)
+	const [required, setRequired] = useState<Boolean>(false)
   const [userInfo, setUserInfo] = useState<userInfo>({
-    userEmail: "",
+		userEmail: "",
     userName: "",
     userHabit: "",
   });
+	const navigate = useNavigate();
 
   const onChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInfo({
@@ -23,88 +28,70 @@ function Subscription() {
       [e.target.name]: e.target.value,
     });
   };
-
-  const [isValid, setIsValid] = useState<Boolean>(false);
-
-  const regexEmailCheck = () => {
-    const EmailValidRegEx = "^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
-    const regexEmail = new RegExp(EmailValidRegEx);
-
-    const NameValidRegEx = "^[가-힣a-zA-Z]+$";
-    const regexName = new RegExp(NameValidRegEx);
-
-    console.log(regexEmail.test(userInfo.userEmail));
-    console.log(regexName.test(userInfo.userName));
-    console.log(regexName.test(userInfo.userHabit));
-    console.log(userInfo);
-  };
-
-  // const regexNameCheck = (name: string;) => {
-  //   const inputValidRegEx = "^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$";
-  //   const regex = new RegExp(inputValidRegEx);
-  //   regex.test(e.target.value);
-  // };
-
-  // 버튼을 누를 경우
-  // email: 이메일 형식, 글자수가 0 이상인지
-  // name: 영어 or 이름(자음, 모음 안됨), 글자수가 0 이상인지
-  // habit: 영어 or 이름(자음, 모음 안됨), 글자수가 0 이상인지
-
-  useEffect(() => {
-    const validEmail = userInfo.userEmail.length > 0;
-    const validName = userInfo.userName.length > 0;
-    const validHabit = userInfo.userHabit.length > 0;
-    setIsValid(validEmail && validName && validHabit);
-  }, [userInfo]);
+	
+	const EmailValidRegEx = "^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
+	const regexEmail = new RegExp(EmailValidRegEx);
+	
+	useEffect(()=> {
+		setIsValid(regexEmail.test(userInfo.userEmail) && userInfo.userEmail.length > 0)
+	}, [userInfo.userEmail])
 
   const HabitDeclare = () => {
-    const validEmail = userInfo.userEmail.length > 0;
-    const validName = userInfo.userName.length > 0;
-    const validHabit = userInfo.userHabit.length > 0;
-    const validCheck = validEmail && validName && validHabit;
-
-    const formData = {
-      eventOccuredBy: "SUBSCRIBER",
-      confirmEmailYN: "N",
-      subscribers: [
-        {
-          email: userInfo.userEmail,
-          name: userInfo.userName,
-          habit: userInfo.userHabit,
-          $ad_agreed: "Y",
-        },
-      ],
-    };
-    const accessToken = "";
-    axios
-      .request({
-        headers: {
-          AccessToken: accessToken,
-        },
-        baseURL: `https://api.stibee.com/v1`,
-        url: `/lists/228056/subscribers`,
-        method: "POST",
-        data: formData,
-      })
-      .then(() => {
-        setUserInfo({
-          userEmail: "",
-          userName: "",
-          userHabit: "",
-        });
-      });
+    if(isValid){
+			const formData = {
+				eventOccuredBy: "SUBSCRIBER",
+				confirmEmailYN: "N",
+				subscribers: [
+					{
+						email: userInfo.userEmail,
+						name: userInfo.userName,
+						habit: userInfo.userHabit,
+						$ad_agreed: "Y",
+					},
+				],
+			};
+			
+			axios
+				.request({
+					headers: {
+						AccessToken: process.env.REACT_APP_STIBEE_TOKEN
+					},
+					baseURL: `https://api.stibee.com/v1`,
+					url: `/lists/228056/subscribers`,
+					method: "POST",
+					data: formData,
+				})
+				.then(() => {
+					// setUserInfo({
+					// 	userEmail: "",
+					// 	userName: "",
+					// 	userHabit: "",
+					// });
+					navigate(`/subscribe/success`)
+					console.log('성공!')
+				});
+		} else {
+			setRequired(true)
+			console.log('이메일 오류!')
+		}
   };
 
   return (
     <S.Container>
       <S.SubscribeWrapper>
         <S.HBDLogo src={Logo} />
+				<S.Content>
+					다짐한 습관을 적어주세요! <br />
+					오늘의 다짐을 기념하는 메일을 보내드릴게요!
+				</S.Content>
         <S.Form>
           <InputForm
             value={userInfo.userEmail}
             name={"userEmail"}
             onChange={onChangeInfo}
             placeholder={"이메일 주소"}
+						required={required}
+						result={'정확한 이메일을 입력해주셔야 기념 메일을 발송해드려요!'}
           />
           <InputForm
             value={userInfo.userName}
@@ -121,11 +108,10 @@ function Subscription() {
           <S.Subscribe
             onClick={(e) => {
               e.preventDefault();
-              // HabitDeclare();
-              regexEmailCheck();
+              HabitDeclare();
             }}
           >
-            습관 결심하기
+            습관 다짐하기
           </S.Subscribe>
         </S.Form>
       </S.SubscribeWrapper>

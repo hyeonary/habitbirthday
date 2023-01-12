@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./components/Shared/Header";
 import MainPage from "./pages/MainPage";
 import Subscription from "./pages/Subscription";
+import Success from "./pages/Success.tsx";
 
 function App() {
   return (
@@ -10,10 +11,10 @@ function App() {
       {/* <Header /> */}
       <Router>
         <Routes>
-          <Route path="/" element={<MainPage />} />
-
-          <Route path="/subscription" element={<Subscription />} />
-
+          {/* <Route path="/" element={<MainPage />} /> */}
+          <Route path="/" element={<Subscription />} />
+          <Route path="/subscribe/success" element={<Success />} />
+          {/* <Route path={'*'} element={<PageNotFound />} /> */}
         </Routes>
       </Router>
     </div>
