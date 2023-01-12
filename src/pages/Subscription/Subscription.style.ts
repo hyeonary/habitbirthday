@@ -6,10 +6,10 @@ export const Container = styled.section`
   background-color: #fff2d1;
   display: flex;
   justify-content: center;
-  padding-top: 150px;
+  padding-top: 60px;
 
   ${onNotLarge} {
-    padding: 150px 20px 0 20px;
+    padding: 60px 20px 0 20px;
   }
 `;
 
