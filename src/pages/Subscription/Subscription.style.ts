@@ -6,9 +6,10 @@ export const Container = styled.section`
   background-color: #fff2d1;
   display: flex;
   justify-content: center;
+  padding-top: 150px;
 
   ${onNotLarge} {
-    padding: 60px 20px;
+    padding: 150px 20px 0 20px;
   }
 `;
 
@@ -29,7 +30,10 @@ export const Content = styled.div`
 export const Descrition = styled.div``;
 
 export const SubscribeWrapper = styled.div`
-  width: 100%;
+  width: 450px;
+  ${onNotLarge}{
+    width: 100%;
+  }
 `;
 
 export const Form = styled.form`
