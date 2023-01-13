@@ -91,7 +91,7 @@ function Habit() {
 				.then(() => {
 					// NotiSlack()
 					window.scrollTo({ top: 0 });
-					navigate(`/subscribe/success`)
+					navigate(`/habit/success`)
 					console.log('성공!')
 				});
 		} else {
