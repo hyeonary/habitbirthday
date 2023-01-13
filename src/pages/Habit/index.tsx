@@ -11,9 +11,7 @@ interface userInfo {
   userHabit: string;
 }
 
-const NOTI_URL = 'https://hooks.slack.com/services/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'
-
-function Subscription() {
+function Habit() {
 
 	const [isValid, setIsValid] = useState<Boolean>(false)
 	const [required, setRequired] = useState<Boolean>(false)
@@ -58,7 +56,7 @@ function Subscription() {
 				const text = `🎉 ${userInfo.userName}님이 ${userInfo.userHabit}을 결심했어요! \n 이메일: ${userInfo.userEmail}`
 				axios.request({
 					method: 'POST',
-					url: "https://cors-anywhere.herokuapp.com/" + NOTI_URL,
+					url: "https://cors-anywhere.herokuapp.com/",
 					headers: {
 						"Content-Type": "application/json"
 					}, 
@@ -91,7 +89,8 @@ function Subscription() {
 					data: formData,
 				})
 				.then(() => {
-					NotiSlack()
+					// NotiSlack()
+					window.scrollTo({ top: 0 });
 					navigate(`/subscribe/success`)
 					console.log('성공!')
 				});
@@ -144,4 +143,4 @@ function Subscription() {
   );
 }
 
-export default Subscription;
+export default Habit;
