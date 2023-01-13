@@ -11,6 +11,8 @@ interface userInfo {
   userHabit: string;
 }
 
+
+
 function Habit() {
 
 	const [isValid, setIsValid] = useState<Boolean>(false)
@@ -20,7 +22,35 @@ function Habit() {
     userName: "",
     userHabit: "",
   });
+
 	const navigate = useNavigate();
+
+	const NotiSlack = () => {
+		const subscribeUser = `${userInfo.userName}님이 ${userInfo.userHabit}을 결심했어요! \n 이메일: ${userInfo.userEmail}`
+		const text = `🎉 ${userInfo.userName}님이 ${userInfo.userHabit}을 결심했어요! \n 이메일: ${userInfo.userEmail}`
+		axios.request({
+			method: 'POST',
+			url: "https://cors-anywhere.herokuapp.com/",
+			headers: {
+				"Content-Type": "application/json"
+			}, 
+			data: {
+				text: subscribeUser,
+				blocks: [
+					{
+						type: "section",
+						text: {
+							type: "mrkdwn",
+							text,
+						},
+					},
+				]
+			}
+		})
+		.then(()=>{
+			console.log('노티 성공!')
+		})
+	}
 
   const onChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInfo({
@@ -35,68 +65,46 @@ function Habit() {
 	useEffect(()=> {
 		setIsValid(regexEmail.test(userInfo.userEmail) && userInfo.userEmail.length > 0)
 	}, [userInfo.userEmail])
-
+	
   const HabitDeclare = () => {
-    if(isValid){
-			const formData = {
-				eventOccuredBy: "SUBSCRIBER",
-				confirmEmailYN: "N",
-				subscribers: [
-					{
-						email: userInfo.userEmail,
-						name: userInfo.userName,
-						habit: userInfo.userHabit,
-						$ad_agreed: "Y",
-					},
-				],
-			};
-
-			const NotiSlack = () => {
-				const subscribeUser = `${userInfo.userName}님이 ${userInfo.userHabit}을 결심했어요! \n 이메일: ${userInfo.userEmail}`
-				const text = `🎉 ${userInfo.userName}님이 ${userInfo.userHabit}을 결심했어요! \n 이메일: ${userInfo.userEmail}`
-				axios.request({
-					method: 'POST',
-					url: "https://cors-anywhere.herokuapp.com/",
-					headers: {
-						"Content-Type": "application/json"
-					}, 
-					data: {
-						text: subscribeUser,
-						blocks: [
+    if(userInfo.userName.length > 0){
+			if(userInfo.userHabit.length > 0) {
+				if(isValid) {
+					const formData = {
+						eventOccuredBy: "SUBSCRIBER",
+						confirmEmailYN: "N",
+						subscribers: [
 							{
-								type: "section",
-								text: {
-									type: "mrkdwn",
-									text,
-								},
+								email: userInfo.userEmail,
+								name: userInfo.userName,
+								habit: userInfo.userHabit,
+								$ad_agreed: "Y",
 							},
-						]
-					}
-				})
-				.then(()=>{
-					console.log('노티 성공!')
-				})
+						],
+					};
+					axios.request({
+						headers: {
+							AccessToken: process.env.REACT_APP_STIBEE_TOKEN
+						},
+						baseURL: `https://api.stibee.com/v1`,
+						url: `/lists/228056/subscribers`,
+						method: "POST",
+						data: formData,
+					})
+					.then(() => {
+						window.scrollTo({ top: 0 });
+						navigate(`/habit/success`)
+						console.log('성공!')
+					});
+				} else {
+					setRequired(true)
+					console.log('이메일 오류!')
+				}
+			} else {
+				alert('습관을 1자 이상 적어주세요!')
 			}
-
-			axios
-				.request({
-					headers: {
-						AccessToken: process.env.REACT_APP_STIBEE_TOKEN
-					},
-					baseURL: `https://api.stibee.com/v1`,
-					url: `/lists/228056/subscribers`,
-					method: "POST",
-					data: formData,
-				})
-				.then(() => {
-					// NotiSlack()
-					window.scrollTo({ top: 0 });
-					navigate(`/habit/success`)
-					console.log('성공!')
-				});
 		} else {
-			setRequired(true)
-			console.log('이메일 오류!')
+			alert('이름을 1자 이상 적어주세요!')
 		}
   };
 

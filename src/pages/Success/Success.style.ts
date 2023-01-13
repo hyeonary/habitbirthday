@@ -6,15 +6,13 @@ export const Container = styled.section`
   background-color: #fff2d1;
   display: flex;
 	flex-direction: column;
-  /* justify-content: center; */
 	align-items: center;
-  padding: 60px 20px;
+  padding: 200px 20px;
 `
 
 export const Contents = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
 	gap: 30px;
 	height: 100%;
@@ -29,4 +27,9 @@ export const Headline = styled.h3`
 	font-weight: 600;
 	line-height: 130%;
 	text-align: center;
+	margin-bottom: 50px;
+`
+
+export const Share = styled.button`
+
 `

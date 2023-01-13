@@ -11,6 +11,7 @@ function Success (){
 					메일함을 확인해보세요!
 				</S.Headline>
 			</S.Contents>
+
 		</S.Container>
 	)
 }
