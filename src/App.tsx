@@ -4,6 +4,7 @@ import Header from "./components/Shared/Header";
 import MainPage from "./pages/MainPage";
 import Habit from "./pages/Habit/index";
 import Success from "./pages/Success/index";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   return (
@@ -12,10 +13,10 @@ function App() {
       <Router>
         <Routes>
           {/* <Route path="/" element={<MainPage />} /> */}
-          <Route path="/" element={<MainPage />} />
+          {/* <Route path="/" element={<MainPage />} /> */}
           <Route path="/habit" element={<Habit />} />
           <Route path="/habit/success" element={<Success />} />
-          {/* <Route path={'*'} element={<PageNotFound />} /> */}
+          <Route path={'*'} element={<PageNotFound />} />
         </Routes>
       </Router>
     </div>
