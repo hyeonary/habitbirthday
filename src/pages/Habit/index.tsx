@@ -11,7 +11,7 @@ interface userInfo {
   userHabit: string;
 }
 
-
+const NOTI_URL = process.env.REACT_APP_HABIT_NOTI
 
 function Habit() {
 
@@ -30,8 +30,9 @@ function Habit() {
 		const text = `🎉 ${userInfo.userName}님이 ${userInfo.userHabit}을 결심했어요! \n 이메일: ${userInfo.userEmail}`
 		axios.request({
 			method: 'POST',
-			url: "https://cors-anywhere.herokuapp.com/",
+			url: `https://proxy.cors.sh/` + NOTI_URL,
 			headers: {
+				'x-cors-api-key': process.env.REACT_APP_CORS_KEY,
 				"Content-Type": "application/json"
 			}, 
 			data: {
@@ -93,6 +94,7 @@ function Habit() {
 					})
 					.then(() => {
 						window.scrollTo({ top: 0 });
+						NotiSlack();
 						navigate(`/habit/success`)
 						console.log('성공!')
 					});
