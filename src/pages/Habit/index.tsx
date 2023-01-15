@@ -62,9 +62,6 @@ function Habit(){
 				]
 			}
 		})
-		.then(()=>{
-			console.log('노티 성공!')
-		})
 	}
 
 	const sendUserInfo = () => {
