@@ -20,11 +20,15 @@ export const HBDLogo = styled.img`
 
 export const Content = styled.div`
   font-size: 14px;
-  font-weight: 600;
+  
   line-height: 150%;
-  text-align: center;
+  text-align: left;
   margin-bottom: 50px;
+  /* color: rgb(96, 109, 123); */
   /* color: #9E9E9E; */
+  em {
+    font-weight: 600;
+  }
 `
 
 export const Descrition = styled.div``;
@@ -73,3 +77,20 @@ export const Subscribe = styled.button`
   padding: 17px 30px;
   cursor: pointer;
 `;
+
+
+export const Contents = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 30px;
+	height: 100%;
+`
+
+export const Headline = styled.h3`
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 130%;
+	text-align: center;
+	margin-bottom: 50px;
+`

@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import * as S from "./Subscription.style";
+import * as S from "./Habit.style";
 import Logo from "../../assets/img/habitLogo.png";
 import axios from "axios";
 import InputForm from "../../components/InputForm";
 import { useNavigate } from "react-router-dom";
 
-interface userInfo {
+interface HabitUser {
   userEmail: string;
   userName: string;
   userHabit: string;
@@ -13,17 +13,31 @@ interface userInfo {
 
 const NOTI_URL = process.env.REACT_APP_HABIT_NOTI
 
-function Habit() {
+function Habit(){
 
 	const [isValid, setIsValid] = useState<Boolean>(false)
 	const [required, setRequired] = useState<Boolean>(false)
-  const [userInfo, setUserInfo] = useState<userInfo>({
+  const [userInfo, setUserInfo] = useState<HabitUser>({
 		userEmail: "",
     userName: "",
     userHabit: "",
   });
 
 	const navigate = useNavigate();
+
+  const onChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInfo({
+      ...userInfo,
+      [e.target.name]: e.target.value,
+    });
+  };
+	
+	const EmailValidRegEx = "^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
+	const regexEmail = new RegExp(EmailValidRegEx);
+	
+	useEffect(()=> {
+		setIsValid(regexEmail.test(userInfo.userEmail) && userInfo.userEmail.length > 0)
+	}, [userInfo.userEmail])
 
 	const NotiSlack = () => {
 		const subscribeUser = `${userInfo.userName}님이 ${userInfo.userHabit}을 결심했어요! \n 이메일: ${userInfo.userEmail}`
@@ -53,61 +67,46 @@ function Habit() {
 		})
 	}
 
-  const onChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInfo({
-      ...userInfo,
-      [e.target.name]: e.target.value,
-    });
-  };
-	
-	const EmailValidRegEx = "^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
-	const regexEmail = new RegExp(EmailValidRegEx);
-	
-	useEffect(()=> {
-		setIsValid(regexEmail.test(userInfo.userEmail) && userInfo.userEmail.length > 0)
-	}, [userInfo.userEmail])
+	const sendUserInfo = () => {
+		const formData = {
+			eventOccuredBy: "SUBSCRIBER",
+			confirmEmailYN: "N",
+			subscribers: [
+				{
+					email: userInfo.userEmail,
+					name: userInfo.userName,
+					habit: userInfo.userHabit,
+					$ad_agreed: "Y",
+				},
+			],
+		};
+		axios.request({
+			headers: {
+				AccessToken: process.env.REACT_APP_STIBEE_TOKEN
+			},
+			baseURL: `https://api.stibee.com/v1`,
+			url: `/lists/228056/subscribers`,
+			method: "POST",
+			data: formData,
+		})
+		.then(() => {
+			window.scrollTo({ top: 0 });
+			NotiSlack();
+			navigate(`/habit/success`)
+		});
+	}
 	
   const HabitDeclare = () => {
-    if(userInfo.userName.length > 0){
-			if(userInfo.userHabit.length > 0) {
-				if(isValid) {
-					const formData = {
-						eventOccuredBy: "SUBSCRIBER",
-						confirmEmailYN: "N",
-						subscribers: [
-							{
-								email: userInfo.userEmail,
-								name: userInfo.userName,
-								habit: userInfo.userHabit,
-								$ad_agreed: "Y",
-							},
-						],
-					};
-					axios.request({
-						headers: {
-							AccessToken: process.env.REACT_APP_STIBEE_TOKEN
-						},
-						baseURL: `https://api.stibee.com/v1`,
-						url: `/lists/228056/subscribers`,
-						method: "POST",
-						data: formData,
-					})
-					.then(() => {
-						window.scrollTo({ top: 0 });
-						NotiSlack();
-						navigate(`/habit/success`)
-						console.log('성공!')
-					});
-				} else {
-					setRequired(true)
-					console.log('이메일 오류!')
-				}
-			} else {
-				alert('습관을 1자 이상 적어주세요!')
-			}
-		} else {
+    if(userInfo.userName.length == 0){
 			alert('이름을 1자 이상 적어주세요!')
 		}
+		if(userInfo.userHabit.length == 0) {
+			alert('습관을 1자 이상 적어주세요!')
+		}
+		if(!isValid) {
+			setRequired(true)
+		}
+		sendUserInfo()
   };
 
   return (

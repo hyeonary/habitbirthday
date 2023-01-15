@@ -1,7 +1,7 @@
-import * as S from './Success.style'
+import * as S from './Habit.style'
 import Logo from "../../assets/img/habitLogo.png";
 
-function Success (){
+function HabitSuccess (){
 	return (
 		<S.Container>
 			<S.Contents>
@@ -16,4 +16,4 @@ function Success (){
 	)
 }
 
-export default Success
+export default HabitSuccess
