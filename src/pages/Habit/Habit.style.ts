@@ -9,7 +9,7 @@ export const Container = styled.section`
   padding-top: 50px;
 
   ${onNotLarge} {
-    padding: 50px 20px 0 20px;
+    padding: 60px 20px 0 20px;
   }
 `;
 
@@ -94,9 +94,14 @@ export const Contents = styled.div`
 export const Headline = styled.h3`
 	font-size: 15px;
 	font-weight: 600;
-	line-height: 130%;
+	line-height: 170%;
 	text-align: center;
 	margin-bottom: 50px;
+  em {
+    font-size: 40px;
+    line-height: 50px;
+    margin-bottom: 20px;
+  }
 `
 
 export const Share = styled.button`
