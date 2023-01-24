@@ -111,8 +111,8 @@ function Habit(){
       <S.SubscribeWrapper>
         <S.HBDLogo src={Logo} />
 				<S.Content>
-					다짐한 습관을 적어주세요! <br />
-					오늘의 다짐을 기념하는 메일을 보내드릴게요!
+					새해가 되어 했던 다짐, 갖고 싶은 꾸준함을 알려주세요! <br />
+					오늘의 다짐을 기념하는 편지를 보내드릴게요. 💌
 				</S.Content>
         <S.Form>
           <InputForm
