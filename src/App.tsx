@@ -1,10 +1,10 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import "./App.css";
-import Habit from "./pages/Habit/index";
-import HabitSuccess from "./pages/Habit/Success";
-import Subscribe from "./pages/Subscribe";
-import SubscribeSuccess from "./pages/Subscribe/SubscribeSuccess";
-import PageNotFound from "./pages/PageNotFound";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import './App.css';
+import Habit from './pages/Habit/index';
+import HabitSuccess from './pages/Habit/Success';
+import Subscribe from './pages/Subscribe';
+import SubscribeSuccess from './pages/Subscribe/SubscribeSuccess';
+import PageNotFound from './pages/PageNotFound';
 
 function App() {
   return (
