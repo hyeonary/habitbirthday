@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import * as S from "./Habit.style";
 import Logo from "../../assets/img/habitLogo.png";
 import axios from "axios";
@@ -79,10 +79,10 @@ function Habit(){
 		};
 		axios.request({
 			headers: {
-				AccessToken: process.env.REACT_APP_STIBEE_TOKEN
+				AccessToken: process.env.REACT_APP_SUBSCRIBE_TOKEN
 			},
 			baseURL: `https://api.stibee.com/v1`,
-			url: `/lists/228056/subscribers`,
+			url: `/lists/225737/subscribers`,
 			method: "POST",
 			data: formData,
 		})
