@@ -5,6 +5,7 @@ import HabitSuccess from './pages/Habit/Success';
 import Subscribe from './pages/Subscribe';
 import SubscribeSuccess from './pages/Subscribe/SubscribeSuccess';
 import PageNotFound from './pages/PageNotFound';
+import MainPage from './pages/MainPage';
 
 function App() {
   return (
@@ -12,9 +13,9 @@ function App() {
       {/* <Header /> */}
       <Router>
         <Routes>
-          {/* <Route path="/subscribe" element={<Subscribe />} /> */}
-          <Route path="/" element={<Subscribe />} />
-          <Route path="/success" element={<SubscribeSuccess />} />
+          <Route path="/" element={<MainPage />} />
+          <Route path="/subscribe" element={<Subscribe />} />
+          <Route path="/subscribe/success" element={<SubscribeSuccess />} />
           <Route path="/habit" element={<Habit />} />
           <Route path="/habit/success" element={<HabitSuccess />} />
           <Route path={'*'} element={<PageNotFound />} />
