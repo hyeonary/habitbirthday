@@ -10,10 +10,6 @@ interface userInfo {
 
 function MainPage() {
   
-  useEffect(()=>{
-
-  }, [])
-
   //@ts-ignore
 	window.TallyConfig = {
     "formId": "mOQNkg",
