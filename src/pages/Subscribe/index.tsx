@@ -100,17 +100,6 @@ function Subscribe(){
 		}
 		return sendUserInfo()
 	}
-	 
-	//@ts-ignore
-	window.TallyConfig = {
-		"formId": "mOQNkg",
-		"popup": {
-			"emoji": {
-				"text": "👋",
-				"animation": "wave"
-			}
-		}
-	};
 
 	return (
 		<S.Container>
