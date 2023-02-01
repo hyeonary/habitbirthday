@@ -2,33 +2,19 @@ import * as S from "./MainPage.style";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Logo from "../../assets/img/HabitKim.png";
-
-interface userInfo {
-  userEmail: string;
-  userName: string;
-}
+import useMatchScreenSize from "../../hooks/useMatchScreenSize";
 
 function MainPage() {
-  
-  //@ts-ignore
-	window.TallyConfig = {
-    "formId": "mOQNkg",
-    "popup": {
-      "width": 370,
-      "emoji": {
-        "text": "👋",
-        "animation": "wave"
-      }
-    }
-  };
+  const {isLarge} = useMatchScreenSize();
 
   return (
     <S.Container>
+      {!isLarge && '작은 화면'}
       <S.Content>
         <S.Habit>
           <img src={Logo} />
         </S.Habit>
-        <S.Title>안녕하세요, 해브해빗입니다!</S.Title>
+        <S.Title>안녕하세요,{!isLarge && <br />} 해브해빗입니다!</S.Title>
         <S.Description>
           해브해빗은 Have A Valuable Habit 이라는 뜻으로 <br />
           <em>모두가 자신만의 꾸준함을 만들 수 있도록</em> <strong>습관으로 나를 알아가는 습관 커뮤니티입니다.</strong><br/>
@@ -48,10 +34,12 @@ function MainPage() {
           <S.Description>
             앞으로 해브해빗은 <em>모두가 자신만의 꾸준함을 가질 수 있도록</em> 여러 방법을 고민하고 보여드릴게요!
           </S.Description>
-
-
-       
       </S.Content>
+      <S.SubscribeTab data-tally-open="mOQNkg" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">
+        <span>
+          뉴스레터 구독하기
+        </span>
+      </S.SubscribeTab>
     </S.Container>
   )
 }
