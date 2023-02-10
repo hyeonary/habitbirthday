@@ -65,12 +65,27 @@ export const Description = styled.div`
   }
 `
 
+const rotation = keyframes`
+  0% {
+		transform : rotate(-10deg)
+	}
+
+	50% {
+		transform : rotate(10deg)
+	}
+
+	100% {
+		transform : rotate(-10deg)
+	}
+`;
+
 export const Habit = styled.div`
   width: 100%;
   text-align: left;
   margin-bottom: 30px;
   img {
     width: 124px;
+    animation: ${rotation} 1.5s linear infinite;
   }
 `
 export const SubscribeTab = styled.div`

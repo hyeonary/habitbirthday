@@ -39,8 +39,8 @@ function Subscribe(){
 	}, [userInfo.userEmail])
 
 	const NotiSlack = () => {
-		const subscribeUser = `🎉 ${userInfo.userName}님이 구독했어요! \n 이메일: ${userInfo.userEmail}`
-		const text = `🎉 ${userInfo.userName}님이 구독했어요! \n 이메일: ${userInfo.userEmail}`
+		const subscribeUser = `🎉 ${userInfo.userName}님이 구독했어요! \n 이메일: ${userInfo.userEmail} \n 구독 경로: 인스타그램`
+		const text = `🎉 ${userInfo.userName}님이 구독했어요! \n 이메일: ${userInfo.userEmail} \n 구독 경로: 인스타그램`
 		axios.request({
 			method: 'POST',
 			url: `https://proxy.cors.sh/` + NOTI_URL,
@@ -67,6 +67,7 @@ function Subscribe(){
 		const formData = {
 			eventOccuredBy: "SUBSCRIBER",
 			confirmEmailYN: "N",
+			groupIds: [`${228790}`],
 			subscribers: [
 				{
 					email: userInfo.userEmail,
