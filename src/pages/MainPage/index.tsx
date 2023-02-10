@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import Logo from "../../assets/img/HabitKim.png";
 import IntroduceLogo from "../../assets/img/introduce.png";
 import useMatchScreenSize from "../../hooks/useMatchScreenSize";
+import { useParams, useLocation } from "react-router-dom";
 
 function MainPage() {
   const {isLarge} = useMatchScreenSize();
+  const {source} = useParams()
+  console.log(source)
 
   return (
     <S.Container>
