@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/img/habitLogo.png";
 import InputForm from "../../components/InputForm";
 import * as S from './Subscribe.style'
+import { debounce } from "lodash";
 
 interface SubscribeUser {
   userEmail: string;
@@ -63,7 +64,7 @@ function Subscribe(){
 		})
 	}
 
-	const sendUserInfo = () => {
+	const sendUserInfo = debounce(() => {
 		const formData = {
 			eventOccuredBy: "SUBSCRIBER",
 			confirmEmailYN: "N",
@@ -90,7 +91,7 @@ function Subscribe(){
 			NotiSlack();
 			navigate(`/success`)
 		});
-	}
+	},500)
 
 	const subscribe = () => {
 		if(!isValid){
