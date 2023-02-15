@@ -10,15 +10,14 @@ import MainPage from './pages/MainPage';
 function App() {
   return (
     <div className="App">
-      {/* <Header /> */}
       <Router>
         <Routes>
-          {/* <Route path="/" element={<MainPage />} /> */}
-          {/* <Route path="/subscribe/littly" element={<MainPage />} /> */}
+          <Route path="/" element={<MainPage />} />
           <Route path="/subscribe" element={<MainPage />} />
-          <Route path="/subscribe/:source" element={<MainPage />} />
+          <Route path="/subscribe/:param" element={<MainPage />} />
           <Route path="/subscribe/success" element={<Subscribe />} />
           <Route path="/subscribe/success/success" element={<SubscribeSuccess />} />
+
           <Route path="/habit" element={<Habit />} />
           <Route path="/habit/success" element={<HabitSuccess />} />
           <Route path={'*'} element={<PageNotFound />} />
