@@ -10,7 +10,6 @@ import MainPage from './pages/MainPage';
 function App() {
   return (
     <div className="App">
-      {/* <Header /> */}
       <Router>
         <Routes>
           <Route path="/" element={<MainPage />} />
