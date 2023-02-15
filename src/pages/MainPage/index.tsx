@@ -8,8 +8,31 @@ import { useParams, useLocation } from "react-router-dom";
 
 function MainPage() {
   const {isLarge} = useMatchScreenSize();
-  const {source} = useParams()
-  console.log(source)
+  const {param} = useParams()
+  
+	const group = 
+  (param == 'mbti') ? 
+  {
+    groupId: 228791,
+    groupName: 'MBTI'
+  } 
+  :
+  (param == 'instagram') ?
+  {
+    groupId: 228790,
+    groupName: '인스타그램'
+  }
+  :
+  (param == 'heybunny') ?
+  {
+    groupId: 228792,
+    groupName: '헤이버니'
+  }
+  :
+  {
+    groupId: 229808,
+    groupName: '홈페이지!'
+  }
 
   return (
     <S.Container>

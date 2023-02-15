@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Logo from "../../assets/img/habitLogo.png";
 import InputForm from "../../components/InputForm";
 import * as S from './Subscribe.style'
@@ -14,7 +14,7 @@ interface SubscribeUser {
 const NOTI_URL = process.env.REACT_APP_SUBSCRIBE_NOTI
 
 function Subscribe(){
-
+	const {param} = useParams()
 	const [isValid, setIsValid] = useState<Boolean>(false)
 	const [emailRequired, setEmailRequired] = useState<Boolean>(false)
 	const [nameRequired, setNameRequired] = useState<Boolean>(false)
@@ -39,9 +39,67 @@ function Subscribe(){
 		setIsValid(regexEmail.test(userInfo.userEmail) && userInfo.userEmail.length > 0)
 	}, [userInfo.userEmail])
 
+	const group = 
+		param == 'mbti' ? 
+		{
+			groupId: 228791,
+			groupName: 'MBTI'
+		} 
+		:
+		param == 'instagram' ?
+		{
+			groupId: 228790,
+			groupName: '인스타그램'
+		}
+		:
+		param == 'heybunny' ?
+		{
+			groupId: 228792,
+			groupName: '헤이버니'
+		}
+		:
+		{
+			groupId: 229808,
+			groupName: '누굴까!'
+		}
+
+	console.log(group)
+	
+	
+	
+
+
+	const userSource = () => {
+    if(param == 'mbti'){
+			const group = {
+				groupId: 228791,
+				groupName: 'MBTI'
+			}
+      return group
+		}
+    if(param == 'instagram'){
+			const group = {
+				groupId: 228790,
+				groupName: '인스타그램'
+			}
+      return group
+    }
+    if(param == 'heybunny'){
+			const group = {
+				groupId: 228792,
+				groupName: '헤이버니'
+			}
+      return group
+    }
+    return group
+  }
+
+	console.log(group)
+
 	const NotiSlack = () => {
-		const subscribeUser = `🎉 ${userInfo.userName}님이 구독했어요! \n 이메일: ${userInfo.userEmail} \n 구독 경로: 인스타그램`
-		const text = `🎉 ${userInfo.userName}님이 구독했어요! \n 이메일: ${userInfo.userEmail} \n 구독 경로: 인스타그램`
+		userSource()
+		const subscribeUser = `🎉 ${userInfo.userName}님이 구독했어요! \n 이메일: ${userInfo.userEmail} \n 구독 경로: ${group.groupName}`
+		const text = `🎉 ${userInfo.userName}님이 구독했어요! \n 이메일: ${userInfo.userEmail} \n 구독 경로: ${group.groupName}`
 		axios.request({
 			method: 'POST',
 			url: `https://proxy.cors.sh/` + NOTI_URL,
