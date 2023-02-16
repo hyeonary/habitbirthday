@@ -1,31 +1,36 @@
 import styled, { keyframes } from "styled-components";
+import useMatchScreenSize from "../hooks/useMatchScreenSize";
 import { onNotLarge } from "../styles/mediaQueries";
 
 const Container = styled.div`
   height: 70px;
 `;
 
-const CustomInput = styled.input`
-  border-radius: 8px;
-  border: none;
-  padding: 12px 40px 12px 1.5rem;
-  width: 100%;
+const CustomInput = styled.input.attrs({
+  placeholderTextColor: '#686868'
+})`
+  border: 1px solid #B9BDC7;
+  border-radius: 6px;
+  padding: 12px 40px 12px 17px;
+  width: 500px;
   font-size: 14px;
   :focus {
     outline: none !important; 
-    border-color: #d6a8e9;
-    box-shadow: 0 0 5px #d6a8e9;
+    border-color: black;
+  } 
+  ${onNotLarge}{
+    width: 100%
   }
 `;
 
 const ValidResult = styled.h3`
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   line-height: 130%;
-  margin-top: 10px;
+  margin-top: 5px;
   text-align: left;
   padding-left: 10px;
-  color: #FF6CB3;
+  color: red;
 `;
 
 interface InputProps {

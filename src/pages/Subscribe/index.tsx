@@ -1,10 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Logo from "../../assets/img/habitLogo.png";
 import InputForm from "../../components/InputForm";
 import * as S from './Subscribe.style'
 import { debounce } from "lodash";
+import HavHabit from "./Components/HavHabit";
+import PostLogo from "../../assets/img/habit-post.png";
+import SubscribeCheckBox from "../../components/SubscribeCheckBox";
+import {CheckModalTitle, CheckModalDesc, AdModalDesc, AdModalTitle} from './Text/Descrition'
+import useMatchScreenSize from "../../hooks/useMatchScreenSize";
 
 interface SubscribeUser {
   userEmail: string;
@@ -15,6 +19,8 @@ const NOTI_URL = process.env.REACT_APP_SUBSCRIBE_NOTI
 
 function Subscribe(){
 	const {param} = useParams()
+  const navigate = useNavigate();
+  const {isLarge} = useMatchScreenSize();
 	const [isValid, setIsValid] = useState<Boolean>(false)
 	const [emailRequired, setEmailRequired] = useState<Boolean>(false)
 	const [nameRequired, setNameRequired] = useState<Boolean>(false)
@@ -22,8 +28,15 @@ function Subscribe(){
 		userEmail: "",
     userName: "",
   });
+  const [userCheck, setUserCheck] = useState<boolean>(false)
+  const [checkRequired, setCheckRequired] = useState<boolean>(false)
+  const [adAgree, setAdAgree] = useState<boolean>(false)
+  const EmailValidRegEx = "^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
+  const regexEmail = new RegExp(EmailValidRegEx);
 
-	const navigate = useNavigate();
+  useEffect(()=> {
+		setIsValid(regexEmail.test(userInfo.userEmail) && userInfo.userEmail.length > 0)
+	}, [userInfo.userEmail])
 
 	const onChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInfo({
@@ -32,27 +45,20 @@ function Subscribe(){
     });
   };
 
-	const EmailValidRegEx = "^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
-	const regexEmail = new RegExp(EmailValidRegEx);
-	
-	useEffect(()=> {
-		setIsValid(regexEmail.test(userInfo.userEmail) && userInfo.userEmail.length > 0)
-	}, [userInfo.userEmail])
-
 	const group = 
-		param == 'mbti' ? 
+		param === 'mbti' ? 
 		{
 			groupId: 228791,
 			groupName: 'MBTI'
 		} 
 		:
-		param == 'instagram' ?
+		param === 'instagram' ?
 		{
 			groupId: 228790,
 			groupName: '인스타그램'
 		}
 		:
-		param == 'heybunny' ?
+		param === 'heybunny' ?
 		{
 			groupId: 228792,
 			groupName: '헤이버니'
@@ -60,44 +66,10 @@ function Subscribe(){
 		:
 		{
 			groupId: 229808,
-			groupName: '누굴까!'
+			groupName: '메인페이지'
 		}
-
-	console.log(group)
-	
-	
-	
-
-
-	const userSource = () => {
-    if(param == 'mbti'){
-			const group = {
-				groupId: 228791,
-				groupName: 'MBTI'
-			}
-      return group
-		}
-    if(param == 'instagram'){
-			const group = {
-				groupId: 228790,
-				groupName: '인스타그램'
-			}
-      return group
-    }
-    if(param == 'heybunny'){
-			const group = {
-				groupId: 228792,
-				groupName: '헤이버니'
-			}
-      return group
-    }
-    return group
-  }
-
-	console.log(group)
 
 	const NotiSlack = () => {
-		userSource()
 		const subscribeUser = `🎉 ${userInfo.userName}님이 구독했어요! \n 이메일: ${userInfo.userEmail} \n 구독 경로: ${group.groupName}`
 		const text = `🎉 ${userInfo.userName}님이 구독했어요! \n 이메일: ${userInfo.userEmail} \n 구독 경로: ${group.groupName}`
 		axios.request({
@@ -126,12 +98,12 @@ function Subscribe(){
 		const formData = {
 			eventOccuredBy: "SUBSCRIBER",
 			confirmEmailYN: "N",
-			groupIds: [`${228790}`],
+			groupIds: [`${group.groupId}`],
 			subscribers: [
 				{
 					email: userInfo.userEmail,
 					name: userInfo.userName,
-					$ad_agreed: "Y",
+					$ad_agreed: `${adAgree ? 'Y' : 'N'}`,
 				},
 			],
 		};
@@ -147,59 +119,125 @@ function Subscribe(){
 		.then(() => {
 			window.scrollTo({ top: 0 });
 			NotiSlack();
-			navigate(`/success`)
+			navigate(`/success`, {state: userInfo.userName})
 		});
 	},500)
 
 	const subscribe = () => {
-		if(!isValid){
+    if(!isValid){
 			return setEmailRequired(true)
-		}	
+		}
     if(userInfo.userName.length == 0){
 			return setNameRequired(true)
-		}
+		}	
+    if(!userCheck){
+      return setCheckRequired(true)
+    }
 		return sendUserInfo()
 	}
 
 	return (
-		<S.Container>
-		<S.SubscribeWrapper>
-			<S.HBDLogo src={Logo} />
-			<S.Content>
-			세상에는 잘하기 위한 방법이나 정보는 많으니, 우리의 꾸준함을 응원하고 격려해주는 존재가 있다면 어떨까요?<br />
-			잠시 멈추거나 좌절했을 때 ‘다시 일어나도 된다’고, ‘잠깐 쉬어도 괜찮다’고 말해주는 존재가 있다면 습관을 더 오래 지속할 수 있을 거예요.<br />
-			스튜디오 해빗은 모두가 자신만의 건강한 꾸준함을 가질 수 있도록 여러 방법을 고민하고 보여드릴게요!<br />
-			나를 위한 습관을 기념해요, Habit Birthday to you 🎉<br />
-				
-			</S.Content>
-			<S.Form>
-				<InputForm
-					value={userInfo.userEmail}
-					name={"userEmail"}
-					onChange={onChangeInfo}
-					placeholder={"이메일 주소"}
-					required={emailRequired}
-					result={'정확한 이메일을 입력해주셔야 기념 메일을 발송해드려요!'}
-				/>
-				<InputForm
-					value={userInfo.userName}
-					name={"userName"}
-					onChange={onChangeInfo}
-					placeholder={"닉네임"}
-					required={nameRequired}
-					result={'이름을 입력해주세요.'}
-				/>
-				<S.Subscribe
-					onClick={(e) => {
-						e.preventDefault();
-						subscribe();
-					}}
-				>
-					뉴스레터 구독하기
-				</S.Subscribe>
-			</S.Form>
-		</S.SubscribeWrapper>
-	</S.Container>
+    <>
+      <HavHabit />
+		  <S.Container>
+        <S.Contents>
+        {isLarge ? (
+          <>
+            <S.Logo>
+              <img src={PostLogo} alt="logo"/>
+            </S.Logo>
+            <S.Heading>
+              습관쟁이 김해빗의 습관 편지<br />
+              메일함에서 만나요! ✉️
+            </S.Heading>
+          </>
+        )
+        :
+        (
+          <>
+            <S.Heading>
+              습관쟁이 김해빗의<br /> 
+              습관 편지<br />
+              메일함에서 만나요! ✉️
+            </S.Heading>
+            <S.Logo>
+              <img src={PostLogo} alt="logo"/>
+            </S.Logo>
+          </>
+        )
+        }
+        <S.Desc>
+          {isLarge ? (
+            <>
+              <em>해브해빗에는 자신만의 꾸준함을 가지고 싶은 사람들이 모여있어요.</em><br/>
+              모두가 자신만의 꾸준함을 만들 수 있도록<br/>
+              습관에 대한 아티클, 습관 만들기 챌린지, 다양한 사람들의 이야기를<br/>
+              격주 월요일, 아침마다 메일함으로 보내드릴게요.
+            </>
+          )
+            :
+            (
+              <>
+                <em>해브해빗에는 자신만의 꾸준함을 가지고 싶은 사람들이 모여있어요.</em><br/>
+                모두가 자신만의 꾸준함을 만들 수 있도록
+                습관에 대한 아티클, 습관 만들기 챌린지, 다양한 사람들의 이야기를
+                격주 월요일, 아침마다 메일함으로 보내드릴게요.
+              </>
+            )
+          }
+
+        </S.Desc>
+          <S.Form>
+            <InputForm
+              value={userInfo.userEmail}
+              name={"userEmail"}
+              onChange={onChangeInfo}
+              placeholder={"이메일 주소"}
+              required={emailRequired}
+              result={'이메일 형식을 확인해주세요. 💌'}
+            />
+            <InputForm
+              value={userInfo.userName}
+              name={"userName"}
+              onChange={onChangeInfo}
+              placeholder={"닉네임"}
+              required={nameRequired}
+              result={'해비터의 이름이 궁금해요! 🤔'}
+            />
+            <SubscribeCheckBox
+              desc={'개인정보 수집·이용'}
+              option={'필수'}
+              value={userCheck}
+              name={"userCheck"}
+              onChange={setUserCheck}
+              required={checkRequired}
+              result={'개인정보 수집 및 이용에 동의해주셔야 편지를 보내드릴 수 있어요.🤙'}
+              modalTitle={CheckModalTitle}
+              modalDesc={CheckModalDesc}
+            />
+            <SubscribeCheckBox 
+              desc={'광고성 정보 수신'}
+              option={'선택'}
+              value={adAgree}
+              name={"adAgree"}
+              onChange={setAdAgree}
+              modalTitle={AdModalTitle}
+              modalDesc={AdModalDesc}
+            />
+            <S.Subscribe
+              onClick={(e) => {
+                e.preventDefault();
+                subscribe();
+              }}
+            >
+              <span>
+                해빗이가 보내주는 뉴스레터 구독하기 🎉
+              </span>
+            </S.Subscribe>
+          </S.Form>
+        </S.Contents>
+	  </S.Container>
+  </>
 	)
 }
 

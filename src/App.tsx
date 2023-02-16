@@ -12,14 +12,12 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/subscribe" element={<MainPage />} />
-          <Route path="/subscribe/:param" element={<MainPage />} />
-          <Route path="/subscribe/success" element={<Subscribe />} />
-          <Route path="/subscribe/success/success" element={<SubscribeSuccess />} />
-
-          <Route path="/habit" element={<Habit />} />
-          <Route path="/habit/success" element={<HabitSuccess />} />
+          <Route path="/" element={<Subscribe />} />
+          {/* <Route path="/subscribe" element={<MainPage />} /> */}
+          <Route path="/subscribe/:param" element={<Subscribe />} />
+          <Route path="/subscribe/success" element={<SubscribeSuccess />} />
+          {/* <Route path="/habit" element={<Habit />} />
+          <Route path="/habit/success" element={<HabitSuccess />} /> */}
           <Route path={'*'} element={<PageNotFound />} />
         </Routes>
       </Router>
