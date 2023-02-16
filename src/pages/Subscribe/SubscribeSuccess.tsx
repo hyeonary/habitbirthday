@@ -23,10 +23,12 @@ function SubscribeSuccess (){
 							<img src={WelcomeLogo} alt='welcomeImage' />
 						</S.Welcome>
 						<S.Headline>
-							{location.state}해비터, 뉴스레터 구독이 완료되었어요!.<br />
+							{location.state} 해비터, 뉴스레터 구독이 완료되었어요.<br />
 							웰컴레터가 잘 도착했는지 메일함을 확인해주세요!
 						</S.Headline>
-						<S.HabitInstagram>
+						<S.HabitInstagram
+							onClick={()=>{window.open('https://www.instagram.com/habit__kim/', '_blank')}}
+						>
 							<img src={InstaLogo} alt='인스타그램' />
 							<span>
 								해빗이 인스타그램 보러가기
