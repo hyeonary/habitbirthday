@@ -119,7 +119,7 @@ function Subscribe(){
 		.then(() => {
 			window.scrollTo({ top: 0 });
 			NotiSlack();
-			navigate(`/success`, {state: userInfo.userName})
+			navigate(`/subscribe/success`, {state: userInfo.userName})
 		});
 	},500)
 
