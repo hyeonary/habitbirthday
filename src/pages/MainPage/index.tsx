@@ -41,7 +41,7 @@ function MainPage() {
           <S.Content>
             <S.Introduce>
               <S.Habit>
-                <img src={Logo} />
+                <img src={Logo} alt="logo"/>
               </S.Habit>
               <S.Title>모두가 자신만의 <br /> 꾸준함을 만들 수 있도록</S.Title>
               <S.Description>
