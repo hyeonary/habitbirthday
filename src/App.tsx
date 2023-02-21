@@ -1,11 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Habit from './pages/Habit/index';
-import HabitSuccess from './pages/Habit/Success';
-import Subscribe from './pages/Subscribe';
+import SubscribeForm from './pages/Subscribe/SubscribeForm';
 import SubscribeSuccess from './pages/Subscribe/SubscribeSuccess';
 import PageNotFound from './pages/PageNotFound';
-import MainPage from './pages/MainPage';
+import Subscribe from './pages/Subscribe';
 
 function App() {
   return (
@@ -14,7 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Subscribe />} />
           {/* <Route path="/subscribe" element={<MainPage />} /> */}
-          <Route path="/subscribe/:param" element={<Subscribe />} />
+          <Route path="/subscribe/:param" element={<SubscribeForm />} />
           <Route path="/subscribe/success" element={<SubscribeSuccess />} />
           {/* <Route path="/habit" element={<Habit />} />
           <Route path="/habit/success" element={<HabitSuccess />} /> */}
