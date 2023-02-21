@@ -11,28 +11,36 @@ function MainPage() {
   const {param} = useParams()
   
 	const group = 
-  (param == 'mbti') ? 
+  (param === 'mbti') ? 
   {
     groupId: 228791,
     groupName: 'MBTI'
   } 
   :
-  (param == 'instagram') ?
+  (param === 'instagram') ?
   {
     groupId: 228790,
     groupName: '인스타그램'
   }
   :
-  (param == 'heybunny') ?
+  (param === 'heybunny') ?
   {
     groupId: 228792,
     groupName: '헤이버니'
   }
   :
+  (param === '1') ?
+  {
+    groupId: 231283,
+    groupName: '뉴스레터'
+  }
+  :
   {
     groupId: 229808,
-    groupName: '홈페이지!'
+    groupName: '홈페이지'
   }
+
+  console.log(param)
 
   return (
     <S.Container>
