@@ -8,7 +8,7 @@ export const Container = styled.section`
   padding-top: 109px;
 
   ${onNotLarge} {
-    padding: 104px 24px 0 24px;
+    padding: 80px 24px 40px 24px;
   }
 `;
 
@@ -107,7 +107,7 @@ export const Subscribe = styled.button`
   background-color: #ff6cb3;
   border: none;
   border-radius: 6px;
-  color: #fff2d1;
+  color: white;
   font-weight: 600;
   font-size: 16px;
   line-height: 150%;
