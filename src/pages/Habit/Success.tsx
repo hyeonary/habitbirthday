@@ -25,7 +25,7 @@ function HabitSuccess (){
 							<img src={Logo} alt="welcome"/>
 						</S.Welcome>
 						<S.Headline>
-							정현 해비터, 앞으로 30일간 잘 부탁한다구리.<br />
+							{location.state} 해비터, 앞으로 30일간 잘 부탁한다구리.<br />
 							딩구리가 보낸 편지가 잘 도착했는지 메일함을 확인해줘!
 						</S.Headline>
 						<S.DigulInsta>
