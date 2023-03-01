@@ -2,13 +2,13 @@ import styled, { keyframes } from "styled-components";
 import { onNotLarge } from "../../styles/mediaQueries";
 
 export const Container = styled.section`
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   justify-content: center;
   padding-top: 109px;
 
   ${onNotLarge} {
-    padding: 104px 24px 0 24px;
+    padding: 60px 24px 0 24px;
   }
 `;
 
@@ -60,8 +60,10 @@ export const Descrition = styled.div``;
 
 export const SubscribeWrapper = styled.div`
   width: 500px;
+  margin-bottom: 50px;
   ${onNotLarge}{
     width: 100%;
+      /* margin-bottom: 50px; */
   }
 `;
 
@@ -82,6 +84,7 @@ export const DigulInsta = styled.div`
   color: #777777;
   text-align: center;
   margin-top: 54px;
+    /* margin-bottom: 50px; */
 
   img {
     cursor: pointer;
@@ -107,7 +110,7 @@ export const Subscribe = styled.button`
   background-color: #ff6cb3;
   border: none;
   border-radius: 6px;
-  color: #fff2d1;
+  color: white;
   font-weight: 600;
   font-size: 16px;
   line-height: 150%;
