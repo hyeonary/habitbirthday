@@ -60,9 +60,10 @@ export const Descrition = styled.div``;
 
 export const SubscribeWrapper = styled.div`
   width: 500px;
+  margin-bottom: 50px;
   ${onNotLarge}{
     width: 100%;
-      margin-bottom: 50px;
+      /* margin-bottom: 50px; */
   }
 `;
 
