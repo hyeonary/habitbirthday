@@ -2,13 +2,13 @@ import styled, { keyframes } from "styled-components";
 import { onNotLarge } from "../../styles/mediaQueries";
 
 export const Container = styled.section`
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   justify-content: center;
   padding-top: 109px;
 
   ${onNotLarge} {
-    padding: 80px 24px 40px 24px;
+    padding: 60px 24px 0 24px;
   }
 `;
 
@@ -62,6 +62,7 @@ export const SubscribeWrapper = styled.div`
   width: 500px;
   ${onNotLarge}{
     width: 100%;
+      margin-bottom: 50px;
   }
 `;
 
@@ -82,6 +83,7 @@ export const DigulInsta = styled.div`
   color: #777777;
   text-align: center;
   margin-top: 54px;
+    /* margin-bottom: 50px; */
 
   img {
     cursor: pointer;
