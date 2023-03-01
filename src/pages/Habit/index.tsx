@@ -132,7 +132,7 @@ function Habit(){
             onChange={onChangeInfo}
             placeholder={"이메일 주소"}
 						required={required}
-						result={'정확한 이메일을 입력해주셔야 습관 메일을 발송한다구리!'}
+						result={'정확한 이메일을 입력해야 습관 메일을 발송한다구리!'}
           />
           <InputForm
             value={userInfo.userName}
