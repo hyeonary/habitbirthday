@@ -70,6 +70,12 @@ function SubscribeForm(){
 			groupName: '뉴스레터 내 구독'
 		}
 		:
+    param === 'everytime' ?
+    {
+      groupId: 231771,
+      groupName: '에브리타임'
+    }
+    :
 		{
 			groupId: 229808,
 			groupName: '메인페이지'
