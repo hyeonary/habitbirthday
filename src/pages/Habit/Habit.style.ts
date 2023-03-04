@@ -5,7 +5,7 @@ export const Container = styled.section`
   /* height: 100vh; */
   display: flex;
   justify-content: center;
-  padding-top: 109px;
+  padding-top: 70px;
 
   ${onNotLarge} {
     padding: 60px 24px 0 24px;
