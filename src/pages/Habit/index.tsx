@@ -5,25 +5,25 @@ import Dingul from "../../assets/img/dingul.png";
 import Insta from "../../assets/img/dingulinsta.png";
 import axios from "axios";
 import InputForm from "../../components/InputForm";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 interface HabitUser {
-  userEmail: string;
-  userName: string;
+  userEmail: any;
+  userName: any;
   userHabit: string;
 }
 
 const NOTI_URL = process.env.REACT_APP_HABIT_NOTI
 
 function Habit(){
-
+	const [searchParams, setSearchParams] = useSearchParams();
 	const [isValid, setIsValid] = useState<Boolean>(false)
 	const [required, setEmailRequired] = useState<Boolean>(false)
 	const [nameRequired, setNameRequired] = useState<Boolean>(false)
 	const [habitRequired, setHabitRequired] = useState<Boolean>(false)
   const [userInfo, setUserInfo] = useState<HabitUser>({
-		userEmail: "",
-    userName: "",
+		userEmail: searchParams.get('email'),
+    userName: searchParams.get('name'),
     userHabit: "",
   });
 
